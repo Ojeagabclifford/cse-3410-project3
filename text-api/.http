@@ -1,0 +1,11 @@
+
+GET http://localhost:3000/directors
+Accept: application/json
+
+###
+
+
+GET http://localhost:3000/movies
+Accept: application/json
+
+###
