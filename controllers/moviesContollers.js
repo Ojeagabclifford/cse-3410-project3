@@ -1,5 +1,5 @@
 const mongodb = require('../config/db');
-// const { ObjectId } = require('mongodb'); // Cleaner way to pull it out
+const ObjectId = require('mongodb').ObjectId; // Cleaner way to pull it out
 
 
 
@@ -68,9 +68,9 @@ const createMovie = async (req, res) => {
 
 const updateMovie = async (req, res) => {
     if (!ObjectId.isValid(req.params.id)) {
-      res.status(400).json('Must use a valid director id to update a director.');
+      res.status(400).json('Must use a valid movie id to update a movie.');
     }
-     const userId = new ObjectId(req.params.id);
+    const userId = new ObjectId(req.params.id);
     const updatedMovie = {
       title: req.body.title,
       releaseYear: req.body.releaseYear,
@@ -80,17 +80,12 @@ const updateMovie = async (req, res) => {
       runtime: req.body.runtime,
       plotSummary: req.body.plotSummary
     };
-     const response = await mongodb
-        .getDb()
-        .db()
-        .collection('movies')
-        .replaceOne({ _id: userId },  updatedMovie);
-      console.log(response);
-      if (response.modifiedCount > 0) {
-        res.status(204).send();
-      } else {
-        res.status(500).json(response.error || 'Some error occurred while updating the director.');
-      }
+ const response = await mongodb.getDb().collection('movies').replaceOne({ _id: userId },  updatedMovie);
+   if (response.acknowledged) {
+    res.status(201).json(response);
+  } else {
+    res.status(500).json(response.error || 'Some error occurred while updating the movie.');
+  }
 }
 
 const deleteMovie = async (req, res) => {
@@ -98,7 +93,7 @@ const deleteMovie = async (req, res) => {
       res.status(400).json('Must use a valid movie id to delete a movie.');
     }
    const userId = new ObjectId(req.params.id);
-     const response = await mongodb.getDb().db().collection('movies').remove({ _id: userId }, true);
+     const response = await mongodb.getDb().collection('movies').deleteOne({ _id: userId }, true);
      console.log(response);
      if (response.deletedCount > 0) {
        res.status(204).send();
