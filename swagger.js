@@ -9,7 +9,7 @@ const doc = {
         description: 'API for managing directors',
     },
     // 2. The switch will now flawlessly detect when it is on Render
-    host: isProduction ? 'cse-3410-project-1.onrender.com' : 'localhost:3000',
+    host: isProduction ? 'cse-3410-project3.onrender.com' : 'localhost:3000',
     schemes: isProduction ? ['https', 'http'] : ['http'],
 }; 
 
