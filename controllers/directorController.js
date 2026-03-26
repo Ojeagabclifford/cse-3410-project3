@@ -3,19 +3,53 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 const getDirectors = async (req, res) => {
-  const db = mongodb.getDb();
+  
   
   try {
-    // await tells Node to wait for the data before moving to the next line
+    const db = mongodb.getDb();
     const lists = await db.collection('directors').find().toArray();
     
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(lists);
   } catch (err) {
-    // This catches errors that the callback method would miss
+  
     res.status(500).json({ message: "Database Error", error: err.message });
   }
 };
+
+
+const getOneDirector = async (reg,res) =>{
+  if (!ObjectId.isValid(reg.params.id)){
+      res.status(404).json("This must be a vaild director id for you to get the id")}
+  
+  try {
+
+    const db = await mongodb.getDb()
+     
+    const directorId =  new ObjectId(reg.params.id);
+    console.log(directorId);
+    const response = await db.collection('directors').findOne( directorId)
+    
+    console.log(response);
+    if(!response)
+    {
+      return res.status(404).json({error:"that user is not found"})
+      
+    }
+    res.json(response)
+      
+  } catch (error) {
+
+    res.status(505).json({message:"This is a server a error"})
+    
+  }
+ 
+
+}
+ 
+    
+  
+
 
 
 
@@ -31,7 +65,9 @@ const getDirectors = async (req, res) => {
 // Array (1)
 
 const createDirector = async (req, res) => {
+  try{
 
+  
     const db = mongodb.getDb();
     // contact: firstName, lastName, email, favoriteColor, and birthday.
     const newDirector = {
@@ -45,11 +81,21 @@ const createDirector = async (req, res) => {
     res.status(201).json(response);
   } else {
     res.status(500).json(response.error || 'Some error occurred while creating the director.');
+  }}
+  catch (error){
+    console.error(error);
+
+    res.status(505).json({message:"This is a server a error",
+       error: err.message 
+    })
   }
+  
 
 }
 
 const updateDirector = async (req, res) => {
+  try{
+
     if (!ObjectId.isValid(req.params.id)) {
     res.status(400).json('Must use a valid director id to update a director.');
   }
@@ -67,9 +113,20 @@ const updateDirector = async (req, res) => {
   } else {
     res.status(500).json(response.error || 'Some error occurred while updating the director.');
   }
+  }
+  catch (error){
+    console.error(error);
+
+    res.status(505).json({message:"This is a server a error",
+       error: err.message 
+    })
+  }
 }
 
 const deleteDirector = async (req, res) => {
+  try{
+
+ 
  if (!ObjectId.isValid(req.params.id)) {
     res.status(400).json('Must use a valid director id to delete a director.');
   }
@@ -82,11 +139,21 @@ const deleteDirector = async (req, res) => {
     res.status(204).send();
   } else {
     res.status(500).json(response.error || 'Some error occurred while deleting the director.');
+  }
+
+}
+  catch (error){
+    console.error(error);
+
+    res.status(505).json({message:"This is a server a error",
+       error: err.message 
+    })
   }}
 
 module.exports = {
   getDirectors,
   createDirector,
   updateDirector,
-  deleteDirector
+  deleteDirector,
+  getOneDirector
 };

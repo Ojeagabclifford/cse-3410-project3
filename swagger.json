@@ -5,10 +5,10 @@
     "description": "API for managing directors",
     "version": "1.0.0"
   },
-  "host": "cse-3410-project3.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/directors/": {
@@ -65,6 +65,28 @@
       }
     },
     "/directors/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "505": {
+            "description": "HTTP Version Not Supported"
+          }
+        }
+      },
       "put": {
         "description": "",
         "parameters": [
@@ -97,8 +119,8 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "201": {
+            "description": "Created"
           },
           "400": {
             "description": "Bad Request"
@@ -197,6 +219,28 @@
       }
     },
     "/movies/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "505": {
+            "description": "HTTP Version Not Supported"
+          }
+        }
+      },
       "put": {
         "description": "",
         "parameters": [
@@ -238,8 +282,8 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "201": {
+            "description": "Created"
           },
           "400": {
             "description": "Bad Request"
