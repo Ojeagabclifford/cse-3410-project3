@@ -38,7 +38,7 @@ const getOneMovie = async (reg,res) =>{
     // console.log(movieId);
     const response = await db.collection('movies').findOne(movieId)
     
-    console.log(json(response));
+    // console.log(json(response));
     if(!response)
     {
       return res.status(404).json({error:"This movie is not found"})
