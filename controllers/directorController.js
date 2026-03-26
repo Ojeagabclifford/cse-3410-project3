@@ -71,7 +71,7 @@ const createDirector = async (req, res) => {
     const db = mongodb.getDb();
     // contact: firstName, lastName, email, favoriteColor, and birthday.
     const newDirector = {
-      name: req.body.email,
+      name: req.body.name,
       bio: req.body.bio,
       nationality: req.body.nationality,
       awards: req.body.awards
