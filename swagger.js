@@ -1,6 +1,6 @@
 const swaggerAutogen = require('swagger-autogen')();
 
-// 1. Use Render's guaranteed built-in environment variable
+
 const isProduction = process.env.RENDER === 'true';
 
 const doc = {

@@ -2,13 +2,13 @@
   "swagger": "2.0",
   "info": {
     "title": "Director API",
-    "description": "API for managing directors",
+    "description": "API for managing directors and movies",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cse-3410-project3.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/directors/": {
@@ -60,6 +60,9 @@
           },
           "500": {
             "description": "Internal Server Error"
+          },
+          "505": {
+            "description": "HTTP Version Not Supported"
           }
         }
       }
@@ -130,6 +133,9 @@
           },
           "500": {
             "description": "Internal Server Error"
+          },
+          "505": {
+            "description": "HTTP Version Not Supported"
           }
         }
       },
@@ -152,6 +158,9 @@
           },
           "500": {
             "description": "Internal Server Error"
+          },
+          "505": {
+            "description": "HTTP Version Not Supported"
           }
         }
       }

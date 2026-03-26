@@ -50,7 +50,7 @@ const getOneMovie = async (reg,res) =>{
 
     console.error(error);
 
-    res.status(505).json({message:"This is a server a error",
+    res.status(505).json({message:"This is a server a error.",
        error: err.message 
     })
     
@@ -58,7 +58,7 @@ const getOneMovie = async (reg,res) =>{
  
 
 }
-
+//data
 //   "_id": {
 //     "$oid": "69c0f882ea921a322f8dd45c"
 //   },
