@@ -18,7 +18,6 @@ const  Githubstrategy = require('passport-github2').Strategy;
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-const { Collection } = require('mongodb');
 // const passport = require('passport');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
@@ -27,11 +26,6 @@ app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: true,
-  store: mongodbI.create({
-    mongoUrl: process.env.MONGODB_U,
-    collectionName:'sessions'
-  }),
-  cookie:{secure:true}
 }))
 .use(passport.initialize())
 .use(passport.session())
