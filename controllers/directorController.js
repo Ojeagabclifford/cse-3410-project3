@@ -67,6 +67,7 @@ const getOneDirector = async (reg,res) =>{
 const createDirector = async (req, res) => {
   try{
 
+    
   
     const db = mongodb.getDb();
     // contact: firstName, lastName, email, favoriteColor, and birthday.

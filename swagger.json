@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Director API",
-    "description": "API for managing directors and movies",
+    "description": "API for managing directors",
     "version": "1.0.0"
   },
   "host": "cse-3410-project3.onrender.com",
@@ -11,6 +11,26 @@
     "https"
   ],
   "paths": {
+    "/login": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/directors/": {
       "get": {
         "description": "",
@@ -35,7 +55,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "email": {
+                "name": {
                   "example": "any"
                 },
                 "bio": {
@@ -54,6 +74,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "412": {
             "description": "Precondition Failed"
@@ -217,6 +240,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "412": {
             "description": "Precondition Failed"
