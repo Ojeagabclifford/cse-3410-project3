@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(session({
   secret: 'secret',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
 }))
 .use(passport.initialize())
 .use(passport.session())
@@ -43,11 +43,11 @@ app.use(session({
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', require('./routes/index'));
+
 
 passport.use(new Githubstrategy({
-  clientID: process.env.GITHUB_CLINT_ID,
-  clientSecret: process.env.GITHUB_CLIENT_SECRECT,
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: process.env.CALLBACK_URL
 },
 function(accessToken,refreshToken,profile,done)
@@ -56,7 +56,11 @@ function(accessToken,refreshToken,profile,done)
 }
 
 
+
+
 )),
+
+
 
 passport.serializeUser((user,done)=>
 {
@@ -72,21 +76,31 @@ passport.deserializeUser((user,done)=>
 })
 
 
+
 app.get('/',(req,res)=>{
-  res.send(req.session.user!== undefined ? `logged in as${req.session.user.displayName}` :"Login Out")
+  if(req.session.user)
+  {
+    const name = req.session.user.username
+    res.send(`logged in as ${name}`)
+  }
+  else{
+   res.send("Login Out")}
 })
 
 app.get('/github/callback', passport.authenticate('github',{
-  failureRedirect: 'api-docs', session: false}),
+  failureRedirect: '/api-docs', session: false}),
   (req,res)=>{
-    req.session.user =req.user;
+    req.session.user = req.user;
     res.redirect('/');
   }
 )
+app.use('/', require('./routes/index'));
 
 process.on('uncaughtException', (err, origin) => {
   console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
 });
+
+
 
 mongodb.initDb((err) => {
   if (err) {
@@ -98,5 +112,6 @@ mongodb.initDb((err) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(process.env.GITHUB_CLIENT_SECRECT)
 });
 
