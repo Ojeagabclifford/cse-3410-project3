@@ -5,10 +5,10 @@
     "description": "API for managing directors",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cse-3410-project3.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/login": {
